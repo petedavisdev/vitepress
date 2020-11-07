@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import globby from 'globby'
 import { createResolver, APP_PATH } from './resolver'
-import { CollectionConfig, resolveCollections } from './collections'
+import { CollectionsConfig, resolveCollections } from './collections'
 import { Resolver } from 'vite'
 import { SiteData, HeadConfig, LocaleConfig } from '../../types/shared'
 export { resolveSiteDataByRoute } from './shared/config'
@@ -16,7 +16,7 @@ export interface UserConfig<ThemeConfig = any> {
   title?: string
   description?: string
   head?: HeadConfig[]
-  collections?: CollectionConfig[]
+  collections?: CollectionsConfig
   themeConfig?: ThemeConfig
   locales?: Record<string, LocaleConfig>
   alias?: Record<string, string>

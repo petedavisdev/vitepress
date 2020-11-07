@@ -1,35 +1,20 @@
 import globby from 'globby'
 
-export interface CollectionConfig {
-  name: string
-  folder: string
-  fields: string[]
-}
+export type CollectionsConfig = Record<string, string>
 
 const resolveCollectionPages = async (root: string, folder: string) =>
   await globby(['*.md'], { cwd: root + folder, ignore: ['node_modules'] })
 
 export async function resolveCollections(
-  collectionsConfig: CollectionConfig[],
+  collectionsConfig: CollectionsConfig,
   root: string
 ) {
-  const collectionData = Promise.all(
-    collectionsConfig
-      // remove any collection config without name and folder
-      .filter((collection) => {
-        return (
-          typeof collection.name === 'string' &&
-          typeof collection.folder === 'string'
-        )
-      })
-      // add pageData for each page in the collection
-      .map(async (collection) => {
-        return [
-          collection.name,
-          await resolveCollectionPages(root, collection.folder)
-        ]
-      })
+  const collectionsData: Record<string, any> = {}
+
+  Object.entries(collectionsConfig).forEach(
+    async ([name, folder]) =>
+      (collectionsData[name] = await resolveCollectionPages(root, folder))
   )
 
-  return Object.fromEntries(await collectionData)
+  return collectionsData
 }
