@@ -5,8 +5,7 @@ import globby from 'globby'
 import { createResolver, APP_PATH } from './resolver'
 import { Resolver } from 'vite'
 import { SiteData, HeadConfig, LocaleConfig } from '../../types/shared'
-import { config } from 'process'
-export { resolveSiteDataByRoute } from '../shared/config'
+export { resolveSiteDataByRoute } from './shared/config'
 
 const debug = require('debug')('vitepress:config')
 
