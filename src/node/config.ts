@@ -3,6 +3,7 @@ import fs from 'fs-extra'
 import chalk from 'chalk'
 import globby from 'globby'
 import { createResolver, APP_PATH } from './resolver'
+import { CollectionConfig, resolveCollections } from './collections'
 import { Resolver } from 'vite'
 import { SiteData, HeadConfig, LocaleConfig } from '../../types/shared'
 export { resolveSiteDataByRoute } from './shared/config'
@@ -15,10 +16,10 @@ export interface UserConfig<ThemeConfig = any> {
   title?: string
   description?: string
   head?: HeadConfig[]
+  collections?: CollectionConfig[]
   themeConfig?: ThemeConfig
   locales?: Record<string, LocaleConfig>
   alias?: Record<string, string>
-  collections?: string
   // TODO locales support etc.
 }
 
@@ -80,6 +81,8 @@ export async function resolveUserConfig(root: string) {
 
 export async function resolveSiteData(root: string): Promise<SiteData> {
   const userConfig = await resolveUserConfig(root)
+  const collections =
+    userConfig.collections && resolveCollections(userConfig.collections, root)
 
   return {
     lang: userConfig.lang || 'en-US',
@@ -87,8 +90,8 @@ export async function resolveSiteData(root: string): Promise<SiteData> {
     description: userConfig.description || 'A VitePress site',
     base: userConfig.base ? userConfig.base.replace(/([^/])$/, '$1/') : '/',
     head: userConfig.head || [],
+    collections: (await collections) || [],
     themeConfig: userConfig.themeConfig || {},
-    locales: userConfig.locales || {},
-    collections: userConfig.collections || ''
+    locales: userConfig.locales || {}
   }
 }

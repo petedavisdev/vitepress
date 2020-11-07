@@ -17,7 +17,7 @@ export interface SiteData<ThemeConfig = any> {
   head: HeadConfig[]
   themeConfig: ThemeConfig
   locales: Record<string, LocaleConfig>
-  collections: string
+  collections: Record<string, PageData[]>
 }
 
 export type HeadConfig =
