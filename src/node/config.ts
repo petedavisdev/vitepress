@@ -81,7 +81,7 @@ export async function resolveUserConfig(root: string) {
 
 export async function resolveSiteData(root: string): Promise<SiteData> {
   const userConfig = await resolveUserConfig(root)
-  const collections =
+  const collectionsData =
     userConfig.collections && resolveCollections(userConfig.collections, root)
 
   return {
@@ -90,7 +90,7 @@ export async function resolveSiteData(root: string): Promise<SiteData> {
     description: userConfig.description || 'A VitePress site',
     base: userConfig.base ? userConfig.base.replace(/([^/])$/, '$1/') : '/',
     head: userConfig.head || [],
-    collections: (await collections) || [],
+    collections: collectionsData || {},
     themeConfig: userConfig.themeConfig || {},
     locales: userConfig.locales || {}
   }
