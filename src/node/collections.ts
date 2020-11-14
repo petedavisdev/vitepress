@@ -8,7 +8,10 @@ const resolveCollectionPages = async (root: string, folder: string) => {
     cwd: root + folder,
     ignore: ['node_modules']
   })
-  const routePaths = pages.map((page) => `/${page.replace(/\.md$/, '')}`)
+
+  const routePaths = pages.map(
+    (page) => `${folder}/${page.replace(/\.md$/, '')}`
+  )
 
   return routePaths
 }
