@@ -1,34 +1,44 @@
 <template>
-  <div class="page">
-    <slot name="top" />
+  <main class="page">
+    <div class="container">
+      <slot name="top" />
 
-    <div class="content">
-      <Content />
+      <div class="content">
+        <Content />
+      </div>
+
+      <PageFooter />
+
+      <NextAndPrevLinks />
+
+      <slot name="bottom" />
     </div>
-
-    <PageFooter />
-
-    <NextAndPrevLinks />
-
-    <slot name="bottom" />
-  </div>
+  </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import PageFooter from './PageFooter.vue'
 import NextAndPrevLinks from './NextAndPrevLinks.vue'
-
-export default defineComponent({
-  components: {
-    PageFooter,
-    NextAndPrevLinks
-  }
-})
 </script>
 
 <style scoped>
 .page {
+  padding-top: var(--header-height);
+}
+
+@media (min-width: 720px) {
+  .page {
+    margin-left: 16.4rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .page {
+    margin-left: 20rem;
+  }
+}
+
+.container {
   margin: 0 auto;
   padding: 0 1.5rem 4rem;
   max-width: 48rem;
