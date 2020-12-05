@@ -86,7 +86,8 @@ export async function resolveUserConfig(root: string) {
 export async function resolveSiteData(root: string): Promise<SiteData> {
   const userConfig = await resolveUserConfig(root)
   const collectionsData =
-    userConfig.collections && resolveCollections(userConfig.collections, root)
+    userConfig.collections &&
+    resolveCollections(userConfig.collections, root, userConfig.markdown)
 
   return {
     lang: userConfig.lang || 'en-US',
