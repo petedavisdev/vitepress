@@ -2,7 +2,9 @@ module.exports = {
   lang: 'en-US',
   title: 'VitePress',
   description: 'Vite & Vue powered static site generator.',
-
+  collections: {
+    blog: '/blog'
+  },
   themeConfig: {
     repo: 'vuejs/vitepress',
     docsDir: 'docs',
@@ -28,7 +30,8 @@ module.exports = {
       {
         text: 'Release Notes',
         link: 'https://github.com/vuejs/vitepress/releases'
-      }
+      },
+      { text: 'Blog', link: '/blog' }
     ],
 
     sidebar: {

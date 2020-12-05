@@ -1,0 +1,3 @@
+# Blog
+
+{{ $site.collections.blog }}
